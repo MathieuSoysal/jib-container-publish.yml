@@ -24,6 +24,6 @@ jobs:
 
     - name: Publish to GitHub Packages Apache Maven
       run: mvn compile jib:build \
-    -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-    -Djib.to.auth.username=${{ github.actor }} \
-    -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+      -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+      -Djib.to.auth.username=${{ github.actor }} \
+      -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
