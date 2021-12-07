@@ -51,3 +51,6 @@ You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry
   # Password to login to registry
   PASSWORD: 
 ```
+
+## License
+The Dockerfile and associated scripts and documentation in this project are released under the GPL-3.0 License.
