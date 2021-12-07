@@ -19,6 +19,10 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  # Username to login to registry
+  USERNAME: ${{ github.actor }}
+  # Password to login to registry
+  PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   publish:
@@ -33,6 +37,17 @@ jobs:
     - name: Buil JIB container and publish to GitHub Packages
       run: mvn compile jib:build \
       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-      -Djib.to.auth.username=${{ github.actor }} \
-      -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }}
+      -Djib.to.auth.username=${{ env.USERNAME }} \
+      -Djib.to.auth.password=${{ env.PASSWORD }}
+```
+You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry of your choice :
+```YAML
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: 
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+  # Username to login to registry
+  USERNAME: 
+  # Password to login to registry
+  PASSWORD: 
 ```
