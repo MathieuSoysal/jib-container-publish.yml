@@ -40,7 +40,7 @@ jobs:
       -Djib.to.auth.username=${{ env.USERNAME }} \
       -Djib.to.auth.password=${{ env.PASSWORD }}
 ```
-You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry of your choice :
+You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry of your choice:
 ```YAML
   # Use docker.io for Docker Hub if empty
   REGISTRY: 
@@ -52,5 +52,12 @@ You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry
   PASSWORD: 
 ```
 
+If your Java project is not in Java 11, don't forget to modify these two lines:
+```YAML
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+```
 ## License
 The Dockerfile and associated scripts and documentation in this project are released under the GPL-3.0 License.
