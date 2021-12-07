@@ -40,7 +40,7 @@ jobs:
       -Djib.to.auth.username=${{ env.USERNAME }} \
       -Djib.to.auth.password=${{ env.PASSWORD }}
 ```
-You can change the `REGISTRY`,`IMAGE_NAME`,`PASSWORD` to publish in the registry of your choice:
+You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
 ```YAML
   # Use docker.io for Docker Hub if empty
   REGISTRY: 
