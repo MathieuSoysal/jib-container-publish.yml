@@ -22,7 +22,7 @@ jobs:
       with:
         java-version: 11
 
-    - name: Publish to GitHub Packages Apache Maven
+    - name: Buil JIB container and publish to GitHub Packages
       run: mvn compile jib:build \
       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
       -Djib.to.auth.username=${{ github.actor }} \
