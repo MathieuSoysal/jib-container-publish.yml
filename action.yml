@@ -26,7 +26,7 @@ jobs:
       with:
         java-version: 11
 
-    - name: Buil JIB container and publish to GitHub Packages
+    - name: Build JIB container and publish to GitHub Packages
       run: mvn compile jib:build \
       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
       -Djib.to.auth.username=${{ env.USERNAME }} \
