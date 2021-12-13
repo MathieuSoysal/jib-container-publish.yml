@@ -35,7 +35,7 @@ jobs:
         java-version: 11
 
     - name: Buil JIB container and publish to GitHub Packages
-      run: mvn compile jib:build \
+      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
       -Djib.to.auth.username=${{ env.USERNAME }} \
       -Djib.to.auth.password=${{ env.PASSWORD }}
