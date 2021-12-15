@@ -8,7 +8,7 @@ GitHub action to build container with jib and publish it to GitHub Packages.
 
 The workflow, usually declared in `.github/workflows/jib-publish.yml`, looks like:
 ```YAML
-name: JIB Container publish to GitHub Package
+name: JIB container publish
 
 on:
   release:
