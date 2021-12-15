@@ -1,6 +1,6 @@
 # On each release : this workflow will build a container with JIB and pulish it to GitHub Packages
 
-name: JIB Container publish to GitHub Package
+name: JIB container publish
 
 on:
   release:
