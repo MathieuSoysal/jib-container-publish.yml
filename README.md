@@ -45,7 +45,7 @@ jobs:
     - name: Buil JIB container and publish to GitHub Packages
       run: |
        mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
        -Djib.to.auth.username=${{ env.USERNAME }} \
        -Djib.to.auth.password=${{ env.PASSWORD }} \
        -Djib.from.image=azul/zulu-openjdk:17-jre-headless
@@ -77,7 +77,7 @@ End replace :
     - name: Buil JIB container and publish to GitHub Packages
       run: |
        mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
        -Djib.to.auth.username=${{ env.USERNAME }} \
        -Djib.to.auth.password=${{ env.PASSWORD }} \
        -Djib.from.image=azul/zulu-openjdk:17-jre-headless
@@ -89,7 +89,7 @@ by :
     - name: Buil JIB container and publish to GitHub Packages
       run: |
        mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
        -Djib.to.auth.username=${{ env.USERNAME }} \
        -Djib.to.auth.password=${{ env.PASSWORD }} \
        -Djib.from.image=eclipse-temurin:11-jre
