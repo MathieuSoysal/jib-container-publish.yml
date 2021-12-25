@@ -69,8 +69,9 @@ You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry o
 If your Java project is not in Java 17, don't forget to modify these two lines:
 ```YAML
     - name: Set up JDK 17
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
+        distribution: 'adopt'
         java-version: 17
 ```
 And replace : 
