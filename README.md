@@ -29,16 +29,26 @@ jobs:
 
     runs-on: ubuntu-latest
     
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
+    steps:
+
+    - name: downcase IMAGE_NAME
+      run: |
+        echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+
+    - uses: actions/checkout@v2
+    - name: Set up JDK 17
+      uses: actions/setup-java@v2
       with:
-        java-version: 11
+        distribution: 'adopt'
+        java-version: 17
 
     - name: Buil JIB container and publish to GitHub Packages
-      run: mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-      -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
-      -Djib.to.auth.username=${{ env.USERNAME }} \
-      -Djib.to.auth.password=${{ env.PASSWORD }}
+      run: |
+       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
+       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.auth.username=${{ env.USERNAME }} \
+       -Djib.to.auth.password=${{ env.PASSWORD }} \
+       -Djib.from.image=azul/zulu-openjdk:17-jre-headless
 ```
 You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
 ```YAML
@@ -52,12 +62,37 @@ You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry o
   PASSWORD: 
 ```
 
-If your Java project is not in Java 11, don't forget to modify these two lines:
+## Java version is not 17
+
+If your Java project is not in Java 17, don't forget to modify these two lines:
 ```YAML
-    - name: Set up JDK 11
+    - name: Set up JDK 17
       uses: actions/setup-java@v1
       with:
-        java-version: 11
+        java-version: 17
+```
+End replace : 
+
+```YAML
+    - name: Buil JIB container and publish to GitHub Packages
+      run: |
+       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
+       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.auth.username=${{ env.USERNAME }} \
+       -Djib.to.auth.password=${{ env.PASSWORD }} \
+       -Djib.from.image=azul/zulu-openjdk:17-jre-headless
+```
+
+by :
+
+```YAML
+    - name: Buil JIB container and publish to GitHub Packages
+      run: |
+       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
+       -Djib.to.image=${{ env.REGISTRY }}/mathieusoysal/site:latest \
+       -Djib.to.auth.username=${{ env.USERNAME }} \
+       -Djib.to.auth.password=${{ env.PASSWORD }} \
+       -Djib.from.image=eclipse-temurin:11-jre
 ```
 ## License
 The Dockerfile and associated scripts and documentation in this project are released under the GPL-3.0 License.
