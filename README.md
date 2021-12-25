@@ -50,6 +50,8 @@ jobs:
        -Djib.to.auth.password=${{ env.PASSWORD }} \
        -Djib.from.image=azul/zulu-openjdk:17-jre-headless
 ```
+### You need to choice a registry other than GitHub Package ?
+
 You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
 ```YAML
   # Use docker.io for Docker Hub if empty
@@ -62,16 +64,17 @@ You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry o
   PASSWORD: 
 ```
 
-## Java version is not 17
+### Your Java version is not 17 ?
 
 If your Java project is not in Java 17, don't forget to modify these two lines:
 ```YAML
     - name: Set up JDK 17
-      uses: actions/setup-java@v1
+      uses: actions/setup-java@v2
       with:
+        distribution: 'adopt'
         java-version: 17
 ```
-End replace : 
+And replace : 
 
 ```YAML
     - name: Buil JIB container and publish to GitHub Packages
