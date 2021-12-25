@@ -1,5 +1,5 @@
 name: JIB container publish
-
+description: 'Build automatically container with JIB and publish it to GitHub Packages.'
 on:
   release:
     types: [created]
@@ -39,3 +39,7 @@ jobs:
        -Djib.to.auth.username=${{ env.USERNAME }} \
        -Djib.to.auth.password=${{ env.PASSWORD }} \
        -Djib.from.image=azul/zulu-openjdk:17-jre-headless
+
+branding:
+  icon: 'package'
+  color: 'gray-dark'
