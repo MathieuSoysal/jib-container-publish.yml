@@ -38,10 +38,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: downcase IMAGE_NAME
-      run: |
-        echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-      shell: bash
+    - name: downcase
+      uses: ASzc/change-string-case-action@v2
+      with:
+        string: ${{ inputs.IMAGE_NAME }}
 
     - uses: actions/checkout@v2
     - name: Set up JDK 17
@@ -53,7 +53,7 @@ runs:
     - name: Buil JIB container and publish to GitHub Packages
       run: |
         mvn compile com.google.cloud.tools:jib-maven-plugin:3.2.0:build \
-        -Djib.to.image=${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.tag_name }} \
+        -Djib.to.image=${{ inputs.REGISTRY }}/${{ steps.downcase.outputs.lowercase }}:${{ inputs.tag_name }} \
         -Djib.to.auth.username=${{ inputs.USERNAME }} \
         -Djib.to.auth.password=${{ inputs.PASSWORD }} \
       shell: bash
