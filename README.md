@@ -1,12 +1,15 @@
-# Build container with JIB and publish it to GitHub Packages 
+# Build container with JIB and publish it to GitHub Packages
+
 GitHub action to build container with jib and publish it to GitHub Packages.
 
 ## Requirements
+
 - Your project need to use Maven
 
 ## Usage
 
 The workflow, usually declared in `.github/workflows/jib-publish.yml`, looks like:
+
 ```YAML
 name: JIB container publish
 
@@ -14,88 +17,42 @@ on:
   release:
     types: [created]
 
-env:
-  # Use docker.io for Docker Hub if empty
-  REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
-  # Username to login to registry
-  USERNAME: ${{ github.actor }}
-  # Password to login to registry
-  PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
   publish:
-
     runs-on: ubuntu-latest
-    
     steps:
+      - name: JIB container build and publish
+        uses: MathieuSoysal/jib-container-publish.yml@v2.0.0
+        with:
+          # Use docker.io for Docker Hub if empty
+          REGISTRY: gcr.io
+          # github.repository as <your-account>/<your-repo>
+          IMAGE_NAME: ${{ github.repository }}
+          # Tag name of the image to publish
+          tag-name: ${{ github.event.release.tag_name }}
+          # Username to login to registry
+          USERNAME: ${{ github.actor }}
+          # Password to login to registry
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          java-version: 17
 
-    - name: downcase IMAGE_NAME
-      run: |
-        echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-
-    - uses: actions/checkout@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: 17
-
-    - name: Buil JIB container and publish to GitHub Packages
-      run: |
-       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
-       -Djib.to.auth.username=${{ env.USERNAME }} \
-       -Djib.to.auth.password=${{ env.PASSWORD }} \
-       -Djib.from.image=azul/zulu-openjdk:17-jre-headless
 ```
+
 ### You need to choice a registry other than GitHub Package ?
 
 You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
+
 ```YAML
   # Use docker.io for Docker Hub if empty
-  REGISTRY: 
+  REGISTRY:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
   # Username to login to registry
-  USERNAME: 
+  USERNAME:
   # Password to login to registry
-  PASSWORD: 
+  PASSWORD:
 ```
 
-### Your Java version is not 17 ?
-
-If your Java project is not in Java 17, don't forget to modify these two lines:
-```YAML
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: 17
-```
-And replace : 
-
-```YAML
-    - name: Buil JIB container and publish to GitHub Packages
-      run: |
-       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
-       -Djib.to.auth.username=${{ env.USERNAME }} \
-       -Djib.to.auth.password=${{ env.PASSWORD }} \
-       -Djib.from.image=azul/zulu-openjdk:17-jre-headless
-```
-
-by :
-
-```YAML
-    - name: Buil JIB container and publish to GitHub Packages
-      run: |
-       mvn compile com.google.cloud.tools:jib-maven-plugin:3.1.4:build \
-       -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.event.release.tag_name }} \
-       -Djib.to.auth.username=${{ env.USERNAME }} \
-       -Djib.to.auth.password=${{ env.PASSWORD }} \
-       -Djib.from.image=eclipse-temurin:11-jre
-```
 ## License
-The Dockerfile and associated scripts and documentation in this project are released under the GPL-3.0 License.
+
+The Dockerfile and associated scripts and documentation in this project are released under the [GPL-3.0 License](https://github.com/MathieuSoysal/jib-container-publish.yml/blob/main/LICENSE).
