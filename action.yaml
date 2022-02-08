@@ -36,11 +36,12 @@ inputs:
     default: "17"
 
 runs:
-  usinf: "composite"
+  using: "composite"
   steps:
     - name: downcase IMAGE_NAME
       run: |
         echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+      shell: bash
 
     - uses: actions/checkout@v2
     - name: Set up JDK 17
