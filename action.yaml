@@ -55,3 +55,4 @@ runs:
         -Djib.to.image=${{ inputs.REGISTRY }}/${{ inputs.IMAGE_NAME }}:${{ inputs.tag_name }} \
         -Djib.to.auth.username=${{ inputs.USERNAME }} \
         -Djib.to.auth.password=${{ inputs.PASSWORD }} \
+      shell: bash
