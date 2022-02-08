@@ -1,0 +1,22 @@
+name: JIB container publish
+
+on:
+  push:
+    branches:
+      - master
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: JIB container build and publish
+        uses: MathieuSoysal/jib-container-publish.yml@v2.0.0
+        with:
+          REGISTRY: gcr.io
+          IMAGE_NAME: ${{ github.repository }}
+          tag-name: ${{ github.event.release.tag_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.actor }}
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          java-version: 17
