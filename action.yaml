@@ -35,13 +35,19 @@ inputs:
     required: true
     default: "17"
 
+env:
+  REGISTRY: ${{ inputs.REGISTRY }}
+  IMAGE_NAME: ${{ inputs.IMAGE_NAME }}
+  USERNAME: ${{ inputs.USERNAME }}
+  PASSWORD: ${{ inputs.PASSWORD }}
+
 runs:
   using: "composite"
   steps:
-    - id: downcase
-      uses: ASzc/change-string-case-action@v2
-      with:
-        string: ${{ inputs.IMAGE_NAME }}
+    - name: downcase IMAGE_NAME
+      run: |
+        echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+      shell: bash
 
     - uses: actions/checkout@v2
     - name: Set up JDK 17
@@ -53,7 +59,7 @@ runs:
     - name: Buil JIB container and publish to GitHub Packages
       run: |
         mvn compile com.google.cloud.tools:jib-maven-plugin:3.2.0:build \
-        -Djib.to.image=${{ inputs.REGISTRY }}/${{ steps.downcase.outputs.lowercase }}:${{ inputs.tag-name }} \
-        -Djib.to.auth.username=${{ inputs.USERNAME }} \
-        -Djib.to.auth.password=${{ inputs.PASSWORD }}
+        -Djib.to.image=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ inputs.tag-name }} \
+        -Djib.to.auth.username=${{ env.USERNAME }} \
+        -Djib.to.auth.password=${{ env.PASSWORD }}
       shell: bash
