@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: JIB container build and publish
-        uses: MathieuSoysal/jib-container-publish.yml@v2.0.6
+        uses: MathieuSoysal/jib-container-publish.yml@v2.0.7
         with:
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: JIB container build and publish
-        uses: MathieuSoysal/jib-container-publish.yml@v2.0.6
+        uses: MathieuSoysal/jib-container-publish.yml@v2.0.7
         with:
           # Use docker.io for Docker Hub if empty
           REGISTRY: gcr.io
