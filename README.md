@@ -24,6 +24,28 @@ jobs:
       - name: JIB container build and publish
         uses: MathieuSoysal/jib-container-publish.yml@v2.0.6
         with:
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+```
+
+### You need to choice a registry other than GitHub Package ?
+
+You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
+
+```YAML
+name: JIB container publish
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: JIB container build and publish
+        uses: MathieuSoysal/jib-container-publish.yml@v2.0.6
+        with:
           # Use docker.io for Docker Hub if empty
           REGISTRY: gcr.io
           # github.repository as <your-account>/<your-repo>
@@ -35,22 +57,6 @@ jobs:
           # Password to login to registry
           PASSWORD: ${{ secrets.GITHUB_TOKEN }}
           java-version: 17
-
-```
-
-### You need to choice a registry other than GitHub Package ?
-
-You can change the `REGISTRY`,`USERNAME`,`PASSWORD` to publish in the registry of your choice:
-
-```YAML
-  # Use docker.io for Docker Hub if empty
-  REGISTRY:
-  # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
-  # Username to login to registry
-  USERNAME:
-  # Password to login to registry
-  PASSWORD:
 ```
 
 ## License
