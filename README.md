@@ -47,7 +47,7 @@ jobs:
         uses: MathieuSoysal/jib-container-publish.yml@v2.0.7
         with:
           # Use docker.io for Docker Hub if empty
-          REGISTRY: gcr.io
+          REGISTRY: ghcr.io
           # github.repository as <your-account>/<your-repo>
           IMAGE_NAME: ${{ github.repository }}
           # Tag name of the image to publish
