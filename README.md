@@ -59,6 +59,11 @@ jobs:
           java-version: 17
 ```
 
+### Multi-Module Maven Projects
+
+If you have a multi-module Maven project you can specify the main module containing the main class using the parameter
+`module` and the main class using the parameter `main-class`.
+
 ## License
 
 The Dockerfile and associated scripts and documentation in this project are released under the [GPL-3.0 License](https://github.com/MathieuSoysal/jib-container-publish.yml/blob/main/LICENSE).
