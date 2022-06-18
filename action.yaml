@@ -34,6 +34,11 @@ inputs:
     description: "Java version to use"
     required: true
     default: "17"
+  # Java distribution 
+  java-distribution:
+    description: "Java distribution to use"
+    required: false
+    default: "adopt"
   # Maven module
   module:
     description: "Maven project to build image of (in a multi module project)"
@@ -55,8 +60,9 @@ runs:
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
-        distribution: "adopt"
+        distribution: ${{ inputs.java-distribution }}
         java-version: ${{ inputs.java-version }}
+        cache: maven
 
     - name: Build JIB container and publish to GitHub Packages
       run: |
