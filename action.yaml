@@ -52,7 +52,7 @@ runs:
   using: "composite"
   steps:
     - id: downcase
-      uses: ASzc/change-string-case-action@v2
+      uses: ASzc/change-string-case-action@v3
       with:
         string: ${{ inputs.IMAGE_NAME }}
 
