@@ -1,0 +1,30 @@
+name: Update hidden dependencies
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: MathieuSoysal/hiden-dependency-updater@v1.1.1
+        with:
+          files: action.yml # List of files to update
+          prefix: "com.google.cloud.tools:jib-maven-plugin:" # Prefix before the version, default is: ""
+          suffix: ":build ."
+          regex: "[0-9.]*"
+          selector: "maven"
+          github_repository: "GoogleContainerTools/jib"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # You need to create your own token with pull request rights
+          commit-message: update jib
+          title: Update jib
+          body: Update jib to reflect release changes
+          branch: update-jib
+          base: main
