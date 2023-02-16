@@ -12,7 +12,7 @@ jobs:
 
       - uses: MathieuSoysal/hiden-dependency-updater@v1.1.1
         with:
-          files: action.yml # List of files to update
+          files: action.yaml # List of files to update
           prefix: "com.google.cloud.tools:jib-maven-plugin:" # Prefix before the version, default is: ""
           suffix: ":build ."
           regex: "[0-9.]*"
