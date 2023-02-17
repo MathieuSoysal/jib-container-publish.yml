@@ -74,7 +74,7 @@ runs:
           MAIN_CLASS_ARGS="-Djib.container.mainClass=${{ inputs.main-class }}"
         fi
 
-        mvn package com.google.cloud.tools:jib-maven-plugin:3.2.1:build \
+        mvn package com.google.cloud.tools:jib-maven-plugin:3.3.1:build \
         -Djib.to.image=${{ inputs.REGISTRY }}/${{ steps.downcase.outputs.lowercase }}:${{ inputs.tag-name }} \
         -Djib.to.auth.username=${{ inputs.USERNAME }} \
         -Djib.to.auth.password=${{ inputs.PASSWORD }} $MULTI_MODULE_ARGS $MAIN_CLASS_ARGS
