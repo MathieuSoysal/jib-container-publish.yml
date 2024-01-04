@@ -57,7 +57,7 @@ runs:
         string: ${{ inputs.IMAGE_NAME }}
 
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+    - name: Set up JDK ${{ inputs.java-version }}
       uses: actions/setup-java@v4
       with:
         distribution: ${{ inputs.java-distribution }}
