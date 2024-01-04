@@ -33,12 +33,12 @@ inputs:
   java-version:
     description: "Java version to use"
     required: true
-    default: "17"
+    default: "21"
   # Java distribution 
   java-distribution:
     description: "Java distribution to use"
     required: false
-    default: "adopt"
+    default: temurin
   # Maven module
   module:
     description: "Maven project to build image of (in a multi module project)"
@@ -56,9 +56,9 @@ runs:
       with:
         string: ${{ inputs.IMAGE_NAME }}
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
         distribution: ${{ inputs.java-distribution }}
         java-version: ${{ inputs.java-version }}
